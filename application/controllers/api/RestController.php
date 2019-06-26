@@ -1,8 +1,15 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+/**
+ * Clase controladora principal para los servicios REST
+ */
 class RestController extends CI_Controller
 {
+
+    /**
+     * Constructor de la clase
+     */
     public function __construct()
     {
         parent::__construct();
@@ -10,12 +17,19 @@ class RestController extends CI_Controller
         header('Access-Control-Allow-Methods: GET');
         header("Access-Control-Allow-Headers: X-Requested-With");
     }
-    
+
+    /**
+     * Metodo para cargar el modelo de la tabla a operar
+     */
     public function loadModel($modelo)
     {
         $this->load->model($modelo);
     }
-    
+
+    /**
+     * Metodo para determinar el tipo de accion a realizar
+     * Basado en el verbo de la peticionb HTTP
+     */
     public function setMethod()
     {
         switch ($_SERVER['REQUEST_METHOD']) {
@@ -41,6 +55,9 @@ class RestController extends CI_Controller
         }
     }
 
+    /**
+     * Metodo para obtener el arreglo con los valores recibidos en el JSON de la peticion HTTP
+     */
     public function getData()
     {
         $data = [];
